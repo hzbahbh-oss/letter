@@ -72,7 +72,7 @@ button{font-family:inherit}
 /* ================= curtain ================= */
 #curtain{position:fixed;inset:0;z-index:100;background:var(--cream);display:flex;
   align-items:center;justify-content:center;flex-direction:column;gap:20px;padding:28px;
-  transition:opacity 1.05s ease,visibility 1.05s}
+  transition:opacity .3s ease,visibility .3s}
 #curtain.gone{opacity:0;visibility:hidden}
 #curtain .env{width:76px;height:76px;animation:pulse 2.8s ease-in-out infinite}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
@@ -82,8 +82,6 @@ button{font-family:inherit}
   letter-spacing:.18em;text-transform:uppercase;padding:14px 34px;border-radius:999px;cursor:pointer;
   transition:.3s;font-weight:500}
 .btn:hover{background:var(--rose);color:#fff;transform:translateY(-1px)}
-.btn.solid{background:var(--rose);color:#fff}
-.btn.solid:hover{background:var(--plum);border-color:var(--plum)}
 
 /* ================= layout ================= */
 .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
@@ -127,9 +125,6 @@ h2{font-size:clamp(30px,5.4vw,54px);margin-bottom:14px}
 .scroll-cue i{display:block;width:1px;height:42px;background:linear-gradient(var(--rose),transparent);
   margin:9px auto 0;animation:cue 2.1s ease-in-out infinite}
 @keyframes cue{0%,100%{opacity:.25;transform:scaleY(.5);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
-
-/* ================= stats ================= */
-.band{background:linear-gradient(180deg,transparent,rgba(233,189,190,.24),transparent)}
 
 /* ================= timeline ================= */
 .tl{position:relative}
@@ -226,28 +221,10 @@ h2{font-size:clamp(30px,5.4vw,54px);margin-bottom:14px}
   aspect-ratio:16/9;position:relative}
 .vid iframe,.vid video{position:absolute;inset:0;width:100%;height:100%;border:0}
 
-/* ================= letter ================= */
-#letter{padding-top:clamp(50px,8vw,100px)}
-.letter-paper{background:var(--paper);border:1px solid var(--line);border-radius:6px;
-  padding:clamp(30px,6vw,72px) clamp(24px,5vw,68px);box-shadow:var(--sh);position:relative;
-  max-width:720px;margin:0 auto}
-.letter-paper::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;
-  background:linear-gradient(180deg,var(--blush),var(--rose),var(--blush));border-radius:6px 0 0 6px}
-.letter-paper p{font-family:var(--serif);font-size:clamp(17.5px,2.5vw,21px);line-height:1.72;
-  color:var(--ink);margin-bottom:1.05em;
-  opacity:0;transform:translateY(14px);transition:opacity .9s ease,transform .9s ease}
-.letter-paper p.in{opacity:1;transform:none}
-.letter-paper p:first-child{font-size:clamp(21px,3.2vw,27px);color:var(--plum);margin-bottom:1.1em}
-.letter-paper p:last-child{color:var(--plum);font-style:italic}
-.letter-sign{margin-top:34px;text-align:right;font-family:var(--serif);font-style:italic;
-  font-size:20px;color:var(--rose)}
-
 /* ================= the end ================= */
 #theEnd{text-align:center;padding:clamp(50px,9vw,110px) 0 clamp(64px,11vw,130px)}
 .heart-end{margin:0 auto;width:26px;color:var(--rose);animation:beat 2.6s ease-in-out infinite}
 @keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.17)}28%{transform:scale(1)}42%{transform:scale(1.12)}}
-.notice{max-width:440px;margin:28px auto 0;font-size:10.5px;line-height:1.65;color:var(--ink-faint);
-  text-align:center;opacity:.7}
 
 /* ================= scene animations ================= */
 .sc{width:100%;height:100%;display:block}
@@ -321,9 +298,6 @@ h2{font-size:clamp(30px,5.4vw,54px);margin-bottom:14px}
   .polaroid,.moment.flip .polaroid{transform:rotate(-1deg)}
   #hud{top:auto;bottom:14px;right:14px}
 }
-@media(max-width:520px){
-  .reason{grid-template-columns:1fr;gap:6px}
-}
 </style>
 </head>
 <body class="locked">
@@ -391,26 +365,14 @@ h2{font-size:clamp(30px,5.4vw,54px);margin-bottom:14px}
   </div>
 </section>
 
-<!-- ============ LETTER ============ -->
-<section id="letter">
-  <div class="wrap">
-    <div class="rv" style="text-align:center;margin-bottom:clamp(30px,5vw,52px)">
-      <div class="eyebrow" id="ltEyebrow"></div>
-      <h2 id="ltTitle"></h2>
-    </div>
-    <div class="letter-paper" id="ltPaper"></div>
-  </div>
-</section>
-
 <!-- ============ END ============ -->
 <section id="theEnd">
   <div class="wrap rv">
     <svg class="heart-end" viewBox="0 0 24 24"><path d="M12 21 L4 13 a5 5 0 0 1 8 -6 a5 5 0 0 1 8 6 Z" fill="currentColor"/></svg>
-    <p class="notice" id="notice"></p>
   </div>
 </section>
 
-<audio id="audio" loop></audio>
+<audio id="audio" loop preload="auto"></audio>
 
 <script src="content.js"></script>
 <script src="scenes.js"></script>
@@ -445,7 +407,7 @@ const io = new IntersectionObserver(es=>{
   es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
 },{threshold:.15, rootMargin:"0px 0px -6% 0px"});
 function watch(root){
-  (root||document).querySelectorAll(".rv,.rv-r,.moment,.letter-paper p").forEach(el=>{
+  (root||document).querySelectorAll(".rv,.rv-r,.moment").forEach(el=>{
     if(!el.dataset.w){ el.dataset.w="1"; io.observe(el); }
   });
 }
@@ -456,9 +418,9 @@ $("#cLabel").textContent = C.curtain?.label || "";
 $("#cHint").textContent  = C.curtain?.hint  || "";
 $("#openBtn").textContent= C.curtain?.button|| "Kholo";
 $("#heroEyebrow").textContent = C.hero?.eyebrow || "";
-$("#heroLine2").textContent   = C.hero?.line2 || "";
+if(has(C.hero?.line2)) $("#heroLine2").textContent = C.hero.line2; else $("#heroLine2").remove();
 $("#heroSub").textContent     = C.hero?.sub || "";
-$("#heroTitle").innerHTML = (C.hero?.line1||"Sorry.").split(" ")
+$("#heroTitle").innerHTML = (C.hero?.line1||"").split(" ")
   .map((w,i)=>`<span class="w" style="animation-delay:${.18+i*.14}s">${esc(w)}</span>`).join(" ");
 $("#heroArt").innerHTML = has(C.hero?.photo)
   ? `<img src="${esc(imgSrc(C.hero.photo))}" alt="">` : scene("moon");
@@ -533,14 +495,6 @@ if(VM.show && has(VM.video)){
   $("#vmSlot").innerHTML=videoHTML(VM.video);
 }
 
-/* ================= letter ================= */
-const LT = C.letter||{};
-$("#ltEyebrow").textContent = LT.eyebrow||"";
-$("#ltTitle").textContent   = LT.title||"";
-$("#ltPaper").innerHTML = (LT.paras||[]).map((p,i)=>
-  `<p style="transition-delay:${Math.min(i*.09,.7)}s">${esc(p)}</p>`).join("")
-  + `<div class="letter-sign">— ${esc(C.yourName||"")}</div>`;
-
 /* ================= petals ================= */
 if(!reduced){
   const p=$("#petals"), ch=["❀","✿","❁","·","✦"];
@@ -554,35 +508,17 @@ if(!reduced){
     p.appendChild(d);
   }
 }
-function burst(){
-  for(let i=0;i<24;i++){
-    const d=document.createElement("div"); d.textContent="❤︎";
-    Object.assign(d.style,{position:"fixed",left:"50%",bottom:"20%",zIndex:80,pointerEvents:"none",
-      color:"var(--rose)",fontSize:(11+Math.random()*15)+"px",
-      transition:"transform 1.9s cubic-bezier(.2,.7,.3,1),opacity 1.9s"});
-    document.body.appendChild(d);
-    requestAnimationFrame(()=>{
-      d.style.transform=`translate(${Math.random()*540-270}px,${-(170+Math.random()*400)}px) rotate(${Math.random()*360}deg)`;
-      d.style.opacity="0";
-    });
-    setTimeout(()=>d.remove(),2000);
-  }
-}
 
 /* ================= reading tracker ================= */
 const TR = C.tracker||{};
-$("#notice").textContent = has(TR.endpoint) ? (TR.notice||"") : "";
 
 const SID = (()=>{ try{
     let s=sessionStorage.getItem("sid");
     if(!s){ s=Math.random().toString(36).slice(2,10)+Date.now().toString(36); sessionStorage.setItem("sid",s); }
     return s; }catch(e){ return "x"+Date.now().toString(36); } })();
 
-const T0 = Date.now();
 let maxPct = 0, reachedEnd = false, sent = {}, lastActive = Date.now(), activeMs = 0;
-
 function secs(){ return Math.round(activeMs/1000); }
-function mmss(t){ return Math.floor(t/60)+":"+String(t%60).padStart(2,"0"); }
 
 function track(evt){
   if(!has(TR.endpoint)) return;
@@ -624,7 +560,6 @@ function updateProgress(){
   [25,50,75].forEach(m=>{ if(maxPct>=m && !sent[m]){ sent[m]=1; track("scroll_"+m); } });
 }
 
-/* only count time while the tab is actually being looked at */
 setInterval(()=>{
   if(document.visibilityState==="visible" && Date.now()-lastActive < 60000) activeMs += 1000;
 }, 1000);
@@ -656,16 +591,15 @@ function setAuto(on){
   else if(autoRAF){ cancelAnimationFrame(autoRAF); autoRAF=null; }
 }
 autoBtn.addEventListener("click",()=>setAuto(!auto));
-/* any manual input pauses it, quietly */
 ["wheel","touchstart","keydown"].forEach(e=>
   addEventListener(e, ()=>{ if(auto) setAuto(false); }, {passive:true}));
 
 $("#topBtn").addEventListener("click",()=>{ setAuto(false); scrollTo({top:0,behavior:"smooth"}); });
 
 /* ================= music =================
-   Loops quietly. Starts when she taps "Kholo" (that counts as a
-   user gesture, so browsers allow it). One tap on ♪ turns it off,
-   and the choice is remembered — it won't come back on its own.  */
+   No fades, no timers — the volume is simply set and play() is called.
+   If the browser refuses (autoplay policy), the next thing she touches
+   anywhere on the page starts it. One tap on ♪ turns it off for good.  */
 const musicBtn = $("#musicBtn");
 let musicOn = false;
 
@@ -673,28 +607,13 @@ if(has(C.music)){
   const a = $("#audio");
   a.src = isURL(C.music)||C.music.includes(".") ? C.music
         : "https://drive.google.com/uc?export=download&id="+C.music;
-  a.loop = true; a.preload = "auto";
-
+  a.loop = true;
   const VOL = Math.min(1, Math.max(0, typeof C.musicVolume === "number" ? C.musicVolume : .3));
-  a.volume = VOL;                       /* set once, up front — no races */
+  a.volume = VOL;
+  a.load();
   musicBtn.style.display = "grid";
 
-  /* Timer-based, not requestAnimationFrame: rAF is frozen in background
-     tabs, which would leave the volume stuck at 0. A timer keeps running,
-     and the final value is set unconditionally at the end.               */
-  let fadeId = 0, fadeTimer = null;
-  function fade(to, ms, done){
-    const id = ++fadeId, from = a.volume, t0 = Date.now();
-    clearInterval(fadeTimer);
-    fadeTimer = setInterval(()=>{
-      if(id !== fadeId){ clearInterval(fadeTimer); return; }
-      const k = Math.min(1, (Date.now() - t0) / ms);
-      a.volume = Math.min(1, Math.max(0, from + (to - from) * k));
-      if(k >= 1){ clearInterval(fadeTimer); a.volume = to; if(done) done(); }
-    }, 40);
-    /* belt and braces — if anything throttles the timer, land it anyway */
-    setTimeout(()=>{ if(id === fadeId){ a.volume = to; if(done) done(); } }, ms + 400);
-  }
+  let wants = false;                    /* has she asked for music to be on? */
 
   function paint(){
     musicBtn.classList.toggle("on", musicOn);
@@ -702,27 +621,36 @@ if(has(C.music)){
     musicBtn.title = musicOn ? "music band karo" : "music chalu karo";
     musicBtn.setAttribute("aria-label", musicBtn.title);
   }
-
   function playMusic(){
-    fadeId++;                           /* cancel any fade-out in flight */
-    a.volume = 0;
-    const p = a.play();
+    wants = true;
+    a.volume = VOL;
     musicOn = true; paint();
-    fade(VOL, 2200);
-    if(p && p.catch) p.catch(()=>{ musicOn = false; a.volume = VOL; paint(); });
+    const p = a.play();
+    if(p && p.catch) p.catch(()=>{ musicOn = false; paint(); });  /* wait for a real tap */
   }
   function stopMusic(){
-    musicOn = false; paint();
-    fade(0, 500, ()=>{ a.pause(); a.volume = VOL; });   /* ready for next time */
+    wants = false; musicOn = false; paint();
+    a.pause();
   }
-
   musicBtn.addEventListener("click", ()=>{
     musicOn ? stopMusic() : playMusic();
     try{ sessionStorage.setItem("music", musicOn ? "1" : "0"); }catch(e){}
   });
 
+  /* if autoplay was refused, the very next genuine gesture starts it */
+  function rescue(){
+    if(wants && a.paused){
+      a.volume = VOL;
+      a.play().then(()=>{ musicOn = true; paint(); }).catch(()=>{});
+    }
+  }
+  ["pointerdown","touchstart","click","keydown","wheel","scroll"].forEach(e=>
+    addEventListener(e, rescue, {passive:true}));
+  document.addEventListener("visibilitychange", ()=>{
+    if(document.visibilityState === "visible") rescue();
+  });
+
   paint();
-  /* auto-start on the "Kholo" tap — a real user gesture, so browsers allow it */
   window.__startMusic = ()=>{
     let said = null;
     try{ said = sessionStorage.getItem("music"); }catch(e){}
@@ -732,15 +660,16 @@ if(has(C.music)){
   window.__startMusic = ()=>{};
 }
 
-/* ================= open ================= */
+/* ================= open — lands straight on the home page ================= */
 function openSite(){
+  const c = $("#curtain");
   document.body.classList.remove("locked");
-  $("#curtain").classList.add("gone");
-  watch(); updateProgress(); track("opened");
-  setTimeout(()=>{ const c=$("#curtain"); if(c) c.remove(); }, 1200);
-  setAuto(auto);
+  scrollTo(0,0);
+  if(c) c.classList.add("gone");
   try{ window.__startMusic(); }catch(e){}
-  updateProgress();
+  watch(); updateProgress(); track("opened");
+  setAuto(auto);
+  setTimeout(()=>{ if(c) c.remove(); updateProgress(); }, 320);
 }
 $("#openBtn").addEventListener("click", openSite);
 watch();

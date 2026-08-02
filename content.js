@@ -19,7 +19,7 @@ const CONTENT = {
   hero: {
     eyebrow: "11 June 2024 — 7 October 2025",
     line1: "Mere best moments — tumhare saath.",
-    line2: "476 din. Har ek yaad hai. Neeche sab hai, jaise ka waisa.",
+    line2: "",
     sub: "Yeh page apne aap scroll hoga. Jitna dekhna hai dekh lena, jab mann kare band kar dena.",
     photo: "img/photo-09.jpg",
   },
@@ -30,24 +30,6 @@ const CONTENT = {
     title: "Likhne se aasan tha bol dena",
     caption: "",
     video: "",            // Google Drive FILE ID ya .mp4 link
-  },
-
-  /* ---------- the letter ---------- */
-  letter: {
-    title: "Jo asli mein kehna tha",
-    eyebrow: "the letter",
-    paras: [
-      "Hi Anuja.",
-      "Ho sakta hai tum yeh message padhna hi na chaaho. Aur agar aisa hai to koi baat nahi — mera irada tumhe dobara disturb karne ka, ya zabardasti baat karne ka bilkul nahi hai.",
-      "Jo bhi hua, uske liye main sach mein sorry hoon. Aur usme galti meri hai. Main maanta hoon.",
-      "Tumhe respect nahi de paya. Time nahi de paya. Saath waqt nahi bita paya. Aur upar se rudely baat ki. Mujhe wo saare moments yaad hain jinme maine teri feelings ko hurt kiya. Un sab ke liye sorry bolna chahta hoon.",
-      "Par yeh sab bolke main masoom nahi ban raha, na hi hamdardi gain kar raha hoon. Yeh sab meri apni feelings aur pressure ki wajah se hua. Aur mujhe pata hai — apni internal problem batane par log uska mazaak bhi bana dete hain. Isliye yeh safai nahi hai. Bas sach hai.",
-      "Kuch din bimar tha, kaam bhi chhod diya tha. Us waqt jab khud se honestly confess kiya, tab laga — never too late to say sorry.",
-      "Aur main sirf sorry nahi bol raha. Jo bhi damage hua hai, uski bharpai bhi kar raha hoon. Yeh meri galti ki maafi hai.",
-      "Tumhe bhi pata hai tumne mujhe kitni baar, kitna zyada pyaar kiya. Uske liye bas — thank you.",
-      "Bolne ke liye bahut kuch hai. Shayad wo tumhe bore kar de.",
-      "Achhe se padhai karna. Aage ka jeevan khushi se jeena. Aage ke liye bahut saari shubhkaamnayein.",
-    ],
   },
 
   /* ---------- about her ---------- */
@@ -108,7 +90,7 @@ const CONTENT = {
      endpoint: "" rakhoge to kuch bhi kahin nahi bheja jayega.       */
   tracker: {
     endpoint: "https://script.google.com/macros/s/AKfycbwV1wgakeQ8F-vecekyexmgnU7pF8xmDPh7TbgDOxSEC08o8Fegfu76Tl1Ik7JgJYPh/exec",
-    notice: "Is page par reading progress record hoti hai. Koi message, naam ya location save nahi hoti.",
+    notice: "",
   },
 
   /* ---------- background music ----------
