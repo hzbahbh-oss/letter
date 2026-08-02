@@ -108,7 +108,10 @@ const CONTENT = {
        · Upar ♪ button hamesha dikhta hai — ek tap se band
        · Ek baar band kiya to dobara khud se chalu nahi hoga           */
   music: "img/song.mp3",
-  musicVolume: 0.3,
+  /* 0.12 = halka background sound. Padhne aur photos dekhne mein
+     madad kare, dhyaan na bhatkaye. Zyada chahiye to 0.2 kar do,
+     aur kam ke liye 0.08.                                          */
+  musicVolume: 0.12,
 
   autoScroll: true,   // page apne aap dheere scroll hoga; touch/scroll karne par ruk jayega
 };
