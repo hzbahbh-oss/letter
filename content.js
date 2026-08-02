@@ -18,8 +18,8 @@ const CONTENT = {
 
   hero: {
     eyebrow: "11 June 2024 — 7 October 2025",
-    line1: "Sorry, Anuja.",
-    line2: "Chhota sa sorry nahi. Wo wala jo sochne ke baad nikalta hai.",
+    line1: "Mere best moments — tumhare saath.",
+    line2: "476 din. Har ek yaad hai. Neeche sab hai, jaise ka waisa.",
     sub: "Yeh page apne aap scroll hoga. Jitna dekhna hai dekh lena, jab mann kare band kar dena.",
     photo: "img/photo-09.jpg",
   },
@@ -107,7 +107,7 @@ const CONTENT = {
      tumhare apne Google Sheet mein jaati hai (tracker.gs dekho).
      endpoint: "" rakhoge to kuch bhi kahin nahi bheja jayega.       */
   tracker: {
-    endpoint: "",
+    endpoint: "https://script.google.com/macros/s/AKfycbwVkKzV0SZ86djkCGE_t1h6scgbWHfHmmuLxglotxsQWnk7roLJ-uWUXPdFb937YQoY/exec",
     notice: "Is page par reading progress record hoti hai. Koi message, naam ya location save nahi hoti.",
   },
 

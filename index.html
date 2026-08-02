@@ -149,6 +149,10 @@ h2{font-size:clamp(30px,5.4vw,54px);margin-bottom:14px}
   border:1px solid rgba(201,124,134,.34);border-radius:999px;padding:4px 12px;margin-bottom:13px;
   background:rgba(255,255,255,.6)}
 
+.m-label{font-family:var(--serif);font-size:clamp(19px,2.6vw,25px);color:var(--plum);
+  line-height:1.25;margin:-4px 0 14px;max-width:26ch}
+.moment.feature .m-label{font-size:clamp(23px,3.2vw,30px);text-align:center;margin:0 auto 18px;color:var(--rose)}
+
 /* ---- the one moment that gets to be bigger than the rest ---- */
 .moment.feature{grid-template-columns:1fr;margin:clamp(70px,11vw,130px) 0}
 .moment.feature .dot{grid-column:1;justify-self:center;width:15px;height:15px;margin-bottom:26px;
@@ -491,6 +495,7 @@ function momentHTML(m,i){
     <div class="m-media">
       ${m.highlight&&m.highlightLabel?`<span class="feat-label">${esc(m.highlightLabel)}</span>`:""}
       <span class="m-tag">${esc(m.date||"")}</span>
+      ${m.label?`<div class="m-label">${esc(m.label)}</div>`:""}
       <div class="polaroid"><div class="art${isPhoto?" is-photo kb"+(i%4):""}">${art}</div>
         <div class="cap">${esc(m.date||"")}</div></div>
       ${chat}${has(m.video)?videoHTML(m.video):""}
@@ -586,10 +591,18 @@ function track(evt){
     moments: String(shown), finished: reachedEnd ? "1" : "0",
     screen: innerWidth+"x"+innerHeight, ts: new Date().toISOString(),
   });
+  /* sendBeacon defaults to text/plain, which Apps Script won't parse into
+     e.parameter — so send it as a form-encoded Blob instead. */
   try{
-    if(navigator.sendBeacon){ navigator.sendBeacon(TR.endpoint, body); return; }
+    if(navigator.sendBeacon){
+      const blob = new Blob([body.toString()], {type:"application/x-www-form-urlencoded"});
+      if(navigator.sendBeacon(TR.endpoint, blob)) return;
+    }
   }catch(e){}
-  try{ fetch(TR.endpoint,{method:"POST",mode:"no-cors",keepalive:true,body}); }catch(e){}
+  try{
+    fetch(TR.endpoint, {method:"POST", mode:"no-cors", keepalive:true, body,
+      headers:{"Content-Type":"application/x-www-form-urlencoded"}});
+  }catch(e){}
 }
 
 const ringFg=$("#ringFg"), pctTxt=$("#pctTxt"), prog=$("#progress"), hud=$("#hud");
@@ -666,15 +679,21 @@ if(has(C.music)){
   a.volume = VOL;                       /* set once, up front — no races */
   musicBtn.style.display = "grid";
 
-  let fadeId = 0;                       /* token: only the newest fade may write volume */
-  function fade(to, ms){
-    const id = ++fadeId, from = a.volume, t0 = performance.now();
-    (function step(now){
-      if(id !== fadeId) return;         /* a newer fade took over */
-      const k = Math.min(1, (now - t0) / ms);
+  /* Timer-based, not requestAnimationFrame: rAF is frozen in background
+     tabs, which would leave the volume stuck at 0. A timer keeps running,
+     and the final value is set unconditionally at the end.               */
+  let fadeId = 0, fadeTimer = null;
+  function fade(to, ms, done){
+    const id = ++fadeId, from = a.volume, t0 = Date.now();
+    clearInterval(fadeTimer);
+    fadeTimer = setInterval(()=>{
+      if(id !== fadeId){ clearInterval(fadeTimer); return; }
+      const k = Math.min(1, (Date.now() - t0) / ms);
       a.volume = Math.min(1, Math.max(0, from + (to - from) * k));
-      if(k < 1) requestAnimationFrame(step);
-    })(t0);
+      if(k >= 1){ clearInterval(fadeTimer); a.volume = to; if(done) done(); }
+    }, 40);
+    /* belt and braces — if anything throttles the timer, land it anyway */
+    setTimeout(()=>{ if(id === fadeId){ a.volume = to; if(done) done(); } }, ms + 400);
   }
 
   function paint(){
@@ -694,14 +713,7 @@ if(has(C.music)){
   }
   function stopMusic(){
     musicOn = false; paint();
-    const id = ++fadeId, from = a.volume, t0 = performance.now();
-    (function step(now){
-      if(id !== fadeId) return;
-      const k = Math.min(1, (now - t0) / 600);
-      a.volume = Math.max(0, from * (1 - k));
-      if(k < 1) requestAnimationFrame(step);
-      else { a.pause(); a.volume = VOL; }   /* leave it ready for next time */
-    })(t0);
+    fade(0, 500, ()=>{ a.pause(); a.volume = VOL; });   /* ready for next time */
   }
 
   musicBtn.addEventListener("click", ()=>{

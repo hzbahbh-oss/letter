@@ -17,6 +17,7 @@
 const MOMENTS = [
 
   { date: "11 June 2024", tag: "Day 1", title: "Hi",
+    label: "pehla message",
     caption: "Do lafz. Isi se sab shuru hua tha.",
     scene: "dawn", photo: "img/photo-01.jpg", video: "",
     chat: [
@@ -28,6 +29,7 @@ const MOMENTS = [
     ]},
 
   { date: "13 June 2024", tag: "Day 3", title: "Pehli baar wo teen lafz",
+    label: "pehla i love you",
     caption: "Bola bhi nahi tha — sirf poocha tha ki bolun to chalega?",
     // highlight: true  ->  ye moment page par bada aur alag dikhta hai
     highlight: true, highlightLabel: "pehli baar",
@@ -40,6 +42,7 @@ const MOMENTS = [
     ]},
 
   { date: "14 June 2024", tag: "Day 4", title: "Pehli baar 'baby'",
+    label: "pehla 'baby'",
     caption: "Poochh ke bulaya tha. Tumne haan nahi kaha, par mana bhi nahi.",
     scene: "hearts", photo: "img/photo-02.jpg", video: "",
     chat: [
@@ -50,6 +53,7 @@ const MOMENTS = [
     ]},
 
   { date: "15 June 2024", tag: "419 messages", title: "Jo message tumne delete kiya",
+    label: "419 messages, ek din mein",
     caption: "Din bhar mein 419 messages. Aur ek jo tumne mita diya tha.",
     scene: "photos", photo: "img/photo-03.jpg", video: "",
     chat: [
@@ -60,6 +64,7 @@ const MOMENTS = [
     ]},
 
   { date: "18 June 2024", tag: "", title: "Pehli baar birthday bhool gaya",
+    label: "pehli baar birthday bhoola",
     caption: "Pehli baar. Aakhri baar nahi.",
     scene: "cake", photo: "img/photo-26.jpg", video: "",
     chat: [
@@ -69,6 +74,7 @@ const MOMENTS = [
     ]},
 
   { date: "19 June 2024", tag: "", title: "Pehli ladai",
+    label: "pehli ladai",
     caption: "Aur pehli baar maine 'miss you' likha tha.",
     scene: "storm", photo: "img/photo-04.jpg", video: "",
     chat: [
@@ -78,6 +84,7 @@ const MOMENTS = [
     ]},
 
   { date: "19 June 2024", tag: "8:34 am", title: "Wo line jo maine bheji thi",
+    label: "pehla shayari wala message",
     caption: "Subah 8:34. Maafi maangne ka mera tareeka.",
     scene: "moon", photo: "img/photo-14.jpg", video: "",
     chat: [
@@ -86,6 +93,7 @@ const MOMENTS = [
     ]},
 
   { date: "20 June 2024", tag: "3:49 am", title: "Raat ke 3:49",
+    label: "raat 3:49 ka i love you",
     caption: "Tum jaag rahi thi. Main bhi. Neend yaad ki wajah se nahi aayi thi.",
     scene: "night", photo: "img/photo-28.jpg", video: "",
     chat: [
@@ -97,6 +105,7 @@ const MOMENTS = [
     ]},
 
   { date: "22 June 2024", tag: "12:55 am", title: "Raat ka aakhri message, subah ka pehla",
+    label: "raat ka aakhri, subah ka pehla",
     caption: "Roz ka pattern ban gaya tha ye.",
     scene: "night", photo: "img/photo-29.jpg", video: "",
     chat: [
@@ -107,6 +116,7 @@ const MOMENTS = [
     ]},
 
   { date: "23 June 2024", tag: "", title: "Garmi wali shaam",
+    label: "birthday party wali shaam",
     caption: "Tum party se laut ke aayi thi. Maine kaha masti bhi honi chahiye.",
     scene: "festival", photo: "img/photo-10.jpg", video: "",
     chat: [
@@ -117,6 +127,7 @@ const MOMENTS = [
     ]},
 
   { date: "26 June 2024", tag: "", title: "Milne ki baat khatam",
+    label: "pehli baar milna cancel",
     caption: "Tum milna chahti thi. Main bahaane de raha tha. Isko yaad rakhna zaroori hai.",
     scene: "distance", photo: "", video: "",
     chat: [
@@ -127,6 +138,7 @@ const MOMENTS = [
     ]},
 
   { date: "28 June 2024", tag: "", title: "Tumne kuch aisa kaha jo sach tha",
+    label: "tumne sach bola",
     caption: "Aur maine bhi maan liya tha ki sach hai.",
     scene: "care", photo: "img/photo-08.jpg", video: "",
     chat: [
@@ -136,6 +148,7 @@ const MOMENTS = [
     ]},
 
   { date: "30 June 2024", tag: "", title: "Take care",
+    label: "pehla 'take care'",
     caption: "Tab bhi main yehi bolta tha — 'sorry, disturb nahi karenge'.",
     scene: "care", photo: "img/photo-07.jpg", video: "",
     chat: [
@@ -146,6 +159,7 @@ const MOMENTS = [
     ]},
 
   { date: "2 July 2024", tag: "6:52 am", title: "Wo sapna",
+    label: "wo sapna",
     caption: "Uth ke sabse pehle tumhe batane ka mann kiya tha.",
     scene: "moon", photo: "", video: "",
     chat: [
@@ -156,6 +170,7 @@ const MOMENTS = [
     ]},
 
   { date: "7 July 2024", tag: "10 photos", title: "Bye. Aur do minute baad phir Hii",
+    label: "bye, phir turant hii",
     caption: "Kabhi puri tarah bye nahi hota tha.",
     scene: "photos", photo: "", video: "",
     chat: [
@@ -166,6 +181,7 @@ const MOMENTS = [
     ]},
 
   { date: "9 July 2024", tag: "", title: "Missed call",
+    label: "pehla missed call",
     caption: "Main call karta tha. Tum kaat deti thi. Phir baat hoti thi.",
     scene: "call", photo: "", video: "",
     chat: [
@@ -176,6 +192,7 @@ const MOMENTS = [
     ]},
 
   { date: "11 July 2024", tag: "432 messages", title: "Sabse zyada baat wala din",
+    label: "sabse lamba din — 432 messages",
     caption: "Pure rishte ka sabse lamba din. 432 messages.",
     scene: "cake", photo: "img/photo-30.jpg", video: "",
     chat: [
@@ -187,6 +204,7 @@ const MOMENTS = [
     ]},
 
   { date: "23 July 2024", tag: "1:31 am", title: "Raat ke 1:31 pe rona",
+    label: "raat 1:31 ka rona",
     caption: "Subah tumne bas 'Good morning' bhej diya tha, jaise kuch hua hi na ho.",
     scene: "night", photo: "img/photo-13.jpg", video: "",
     chat: [
@@ -197,6 +215,7 @@ const MOMENTS = [
     ]},
 
   { date: "26 July 2024", tag: "12:31 am", title: "Good night, hug",
+    label: "pehla hug maanga",
     caption: "Poochhna padta tha. Tum kabhi mana nahi karti thi.",
     scene: "hearts", photo: "img/photo-06.jpg", video: "",
     chat: [
@@ -208,6 +227,7 @@ const MOMENTS = [
     ]},
 
   { date: "19 August 2024", tag: "17 photos", title: "Light chali gayi thi",
+    label: "17 photos, ek din",
     caption: "Isliye jaldi-jaldi bhej diya tha. Us din 17 photos.",
     scene: "photos", photo: "img/photo-05.jpg", video: "",
     chat: [
@@ -218,6 +238,7 @@ const MOMENTS = [
     ]},
 
   { date: "26 August 2024", tag: "", title: "Ye gaana kaisa hai",
+    label: "pehla gaana bheja",
     caption: "Tumhe pata nahi tha. Main phir bhi bhejta raha.",
     scene: "music", photo: "img/photo-15.jpg", video: "",
     chat: [
@@ -227,6 +248,7 @@ const MOMENTS = [
     ]},
 
   { date: "1 September 2024", tag: "", title: "Aaj pura din baat nahi ki",
+    label: "pura din baat nahi ki",
     caption: "Tumne khud bola tha ki baat karo. Maine notice bhi nahi kiya tha.",
     scene: "care", photo: "img/photo-12.jpg", video: "",
     chat: [
@@ -237,6 +259,7 @@ const MOMENTS = [
     ]},
 
   { date: "5 September 2024", tag: "11 photos", title: "Good morning, free ho?",
+    label: "roz ka good morning",
     caption: "Har subah ka wahi sawaal.",
     scene: "dawn", photo: "img/photo-21.jpg", video: "",
     chat: [
@@ -247,6 +270,7 @@ const MOMENTS = [
     ]},
 
   { date: "18 September 2024", tag: "", title: "Preparation kar li?",
+    label: "exam ki tayari",
     caption: "Tumhari padhai. Isme main hamesha theek tha.",
     scene: "study", photo: "img/photo-24.jpg", video: "",
     chat: [
@@ -257,6 +281,7 @@ const MOMENTS = [
     ]},
 
   { date: "19 September 2024", tag: "7:43 pm", title: "Ro rahi thi",
+    label: "tum ro rahi thi",
     caption: "Bhookh lagi thi. Bas itni si baat thi. Aur bata bhi diya tha.",
     scene: "care", photo: "img/photo-18.jpg", video: "",
     chat: [
@@ -268,6 +293,7 @@ const MOMENTS = [
     ]},
 
   { date: "31 October 2024", tag: "", title: "Tera birthday kab hai",
+    label: "tumne mera birthday poocha",
     caption: "Tumne poochha tha. Maine bataya hi nahi.",
     scene: "cake", photo: "img/photo-11.jpg", video: "",
     chat: [
@@ -278,6 +304,7 @@ const MOMENTS = [
     ]},
 
   { date: "6 November 2024", tag: "8:46 pm", title: "Tumne jo sabse sach baat kahi",
+    label: "tumne sabse sach baat kahi",
     caption: "Main bas itna bola — 'galat soch rahi ho'. Suna nahi tha.",
     scene: "silence", photo: "img/photo-27.jpg", video: "",
     chat: [
@@ -288,6 +315,7 @@ const MOMENTS = [
     ]},
 
   { date: "30 November 2024", tag: "6:45 am", title: "Ab bas peecha chudwana hai",
+    label: "pehli baar 'khatam' suna",
     caption: "Tumne ye subah 6 baje likha tha.",
     scene: "storm", photo: "", video: "",
     chat: [
@@ -298,6 +326,7 @@ const MOMENTS = [
     ]},
 
   { date: "7 December 2024", tag: "", title: "Pyaar batana nahi padta",
+    label: "tumne pyaar samjhaya",
     caption: "Tumne mujhe pyaar ki definition samjhayi thi. Sahi samjhayi thi.",
     scene: "hearts", photo: "img/photo-16.jpg", video: "",
     chat: [
@@ -307,6 +336,7 @@ const MOMENTS = [
     ]},
 
   { date: "29 December 2024", tag: "", title: "Saal ka aakhri jhagda",
+    label: "saal ka aakhri jhagda",
     caption: "Dono keh rahe the ki dusra value nahi karta. Dono galat the.",
     scene: "storm", photo: "", video: "",
     chat: [
@@ -317,6 +347,7 @@ const MOMENTS = [
     ]},
 
   { date: "9 January 2025", tag: "6:23 am", title: "Control karna padta hai na",
+    label: "control karna padta hai",
     caption: "Tum bhi wahi feel karti thi. Bas sambhal leti thi.",
     scene: "distance", photo: "img/photo-20.jpg", video: "",
     chat: [
@@ -327,6 +358,7 @@ const MOMENTS = [
     ]},
 
   { date: "12 January 2025", tag: "6:40 am", title: "Kab soyi",
+    label: "kab soyi",
     caption: "Tum theek se soyi nahi thi. Ye roz hota tha.",
     scene: "night", photo: "", video: "",
     chat: [
@@ -337,6 +369,7 @@ const MOMENTS = [
     ]},
 
   { date: "22 January 2025", tag: "", title: "Sardi se pareshan",
+    label: "tum bimar thi",
     caption: "Tonsil badh gaya tha. Maine bas 'dawa lo' bola tha.",
     scene: "care", photo: "", video: "",
     chat: [
@@ -347,6 +380,7 @@ const MOMENTS = [
     ]},
 
   { date: "27 January 2025", tag: "5:28 am", title: "Tumne pehle bola tha",
+    label: "tumne pehle bola",
     caption: "Us subah tumne pehle 'I love you' bola tha. Main baad mein.",
     scene: "hearts", photo: "", video: "",
     chat: [
@@ -358,6 +392,7 @@ const MOMENTS = [
     ]},
 
   { date: "12 February 2025", tag: "", title: "Board exam",
+    label: "board exam",
     caption: "Mann nahi kar raha tha padhne ka. Maine zor daala tha. Sahi kiya tha.",
     scene: "study", photo: "img/photo-23.jpg", video: "",
     chat: [
@@ -369,6 +404,7 @@ const MOMENTS = [
     ]},
 
   { date: "15 March 2025", tag: "10:58 pm", title: "Ab aadat ho gayi hai",
+    label: "ab aadat ho gayi",
     caption: "Tumne kaha tha — shuru mein achha nahi lagta tha, ab bina tumhare achha nahi lagta.",
     scene: "moon", photo: "", video: "",
     chat: [
@@ -380,6 +416,7 @@ const MOMENTS = [
     ]},
 
   { date: "23 April 2025", tag: "1:20 pm", title: "Chakkar aa raha tha",
+    label: "chakkar aa raha tha",
     caption: "Tumhari tabiyat kharab thi. Main 'i love you' bhej raha tha.",
     scene: "care", photo: "", video: "",
     chat: [
@@ -390,6 +427,7 @@ const MOMENTS = [
     ]},
 
   { date: "1 May 2025", tag: "10:14 pm", title: "Dobara birthday bhool gaya",
+    label: "dobara birthday bhoola",
     caption: "Maine kaha yaad tha. Tumne kaha nahi tha. Tum sahi thi.",
     scene: "cake", photo: "", video: "",
     chat: [
@@ -401,6 +439,7 @@ const MOMENTS = [
     ]},
 
   { date: "6 May 2025", tag: "10:23 pm", title: "Tumhari baat sun ke rona aata hai",
+    label: "rona aa jaata hai",
     caption: "Aur maine jawab mein exercise karne ka mashwara diya tha.",
     scene: "storm", photo: "", video: "",
     chat: [
@@ -411,6 +450,7 @@ const MOMENTS = [
     ]},
 
   { date: "11 May 2025", tag: "10:33 pm", title: "Aao abhi",
+    label: "tumne bulaya, main nahi gaya",
     caption: "Tumne bulaya tha. Main nahi gaya.",
     scene: "distance", photo: "img/photo-17.jpg", video: "",
     chat: [
@@ -421,6 +461,7 @@ const MOMENTS = [
     ]},
 
   { date: "13 May 2025", tag: "4:34 am", title: "Subah 4:34, bye",
+    label: "subah 4:34 ka bye",
     caption: "Chhoti si baat. Roz hoti thi. Ab nahi hoti.",
     scene: "dawn", photo: "", video: "",
     chat: [
@@ -431,6 +472,7 @@ const MOMENTS = [
     ]},
 
   { date: "25 May 2025", tag: "11:37 pm", title: "Bolo I love you",
+    label: "bolo i love you",
     caption: "Kyun? Kyunki main karta hoon. Bas.",
     scene: "hearts", photo: "", video: "",
     chat: [
@@ -441,6 +483,7 @@ const MOMENTS = [
     ]},
 
   { date: "29 May 2025", tag: "24 photos", title: "Sabse zyada photos wala din",
+    label: "24 photos, sabse zyada",
     caption: "Ek din mein 24. Aur tum meri tabiyat poochh rahi thi.",
     scene: "photos", photo: "img/photo-22.jpg", video: "",
     chat: [
@@ -451,6 +494,7 @@ const MOMENTS = [
     ]},
 
   { date: "6 June 2025", tag: "11:02 pm", title: "Mera bachcha",
+    label: "mera bachcha",
     caption: "Tumne likha tha — 'iska zaroorat abhi tumko hai'. Take care ki.",
     scene: "hearts", photo: "img/photo-19.jpg", video: "",
     chat: [
@@ -462,6 +506,7 @@ const MOMENTS = [
     ]},
 
   { date: "9 August 2025", tag: "10:20 pm", title: "Sachcha pyaar",
+    label: "sachcha pyaar wali baat",
     caption: "Tumne kaha sachcha pyaar bina kuch paaye bhi rehta hai. Maine kaha 'jhoot'. Tum sahi thi.",
     scene: "moon", photo: "", video: "",
     chat: [
@@ -472,6 +517,7 @@ const MOMENTS = [
     ]},
 
   { date: "15 August 2025", tag: "18 photos", title: "Tabiyat kharab thi",
+    label: "raat ko call kiya",
     caption: "Us raat maine tumhe call karne ko bola tha. Tumne kiya tha.",
     scene: "care", photo: "img/photo-25.jpg", video: "",
     chat: [
@@ -483,6 +529,7 @@ const MOMENTS = [
     ]},
 
   { date: "31 August 2025", tag: "10:56 pm", title: "Sab tere wajah se",
+    label: "sabse bura jo maine kaha",
     caption: "Maine ye bola tha. Tumne kaha rona aata hai. Ye galat tha mera.",
     scene: "storm", photo: "", video: "",
     chat: [
@@ -493,6 +540,7 @@ const MOMENTS = [
     ]},
 
   { date: "3 September 2025", tag: "6:45 am", title: "Raat 3 baje online",
+    label: "raat 3 baje online",
     caption: "Tum notice karti thi. Hamesha.",
     scene: "night", photo: "", video: "",
     chat: [
@@ -503,6 +551,7 @@ const MOMENTS = [
     ]},
 
   { date: "8 September 2025", tag: "6:22 am", title: "Tum irritate lagti ho",
+    label: "jo maine kabhi bola tha",
     caption: "Ye maine kabhi bola tha. Tumne yaad rakha. Main bhool gaya tha.",
     scene: "silence", photo: "", video: "",
     chat: [
@@ -513,6 +562,7 @@ const MOMENTS = [
     ]},
 
   { date: "4 October 2025", tag: "9:06 pm", title: "Aur bolo",
+    label: "kehne ko kuch nahi bacha",
     caption: "Dono ke paas kehne ko kuch nahi bacha tha.",
     scene: "silence", photo: "", video: "",
     chat: [
@@ -526,6 +576,7 @@ const MOMENTS = [
     ]},
 
   { date: "7 October 2025", tag: "6:16 am · the last one", title: "Hii. Good morning.",
+    label: "aakhri do messages",
     caption: "Ye tumhare aakhri do messages the. Maine jawab nahi diya. Aur uske baad kuch nahi.",
     scene: "silence", photo: "", video: "",
     chat: [
