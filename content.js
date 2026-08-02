@@ -107,7 +107,7 @@ const CONTENT = {
      tumhare apne Google Sheet mein jaati hai (tracker.gs dekho).
      endpoint: "" rakhoge to kuch bhi kahin nahi bheja jayega.       */
   tracker: {
-    endpoint: "https://script.google.com/macros/s/AKfycbwVkKzV0SZ86djkCGE_t1h6scgbWHfHmmuLxglotxsQWnk7roLJ-uWUXPdFb937YQoY/exec",
+    endpoint: "https://script.google.com/macros/s/AKfycbwV1wgakeQ8F-vecekyexmgnU7pF8xmDPh7TbgDOxSEC08o8Fegfu76Tl1Ik7JgJYPh/exec",
     notice: "Is page par reading progress record hoti hai. Koi message, naam ya location save nahi hoti.",
   },
 
