@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Anuja</title>
+<meta name="description" content="Ek baat kehni thi.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#FBF7F5">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FBF7F5'/%3E%3Cpath d='M32 50 L14 32 a12 12 0 0 1 18 -16 a12 12 0 0 1 18 16 Z' fill='%23C97C86'/%3E%3Cpath d='M32 50 L14 32 a12 12 0 0 1 18 -16 a12 12 0 0 1 18 16 Z' fill='none' stroke='%23fff' stroke-opacity='.5' stroke-width='1.5'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23FBF7F5'/%3E%3Cpath d='M32 50 L14 32 a12 12 0 0 1 18 -16 a12 12 0 0 1 18 16 Z' fill='%23C97C86'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FBF7F5; --cream-2:#F3E9E4; --paper:#FFFDFB;
+  --blush:#E9BDBE; --rose:#C97C86; --rose-dk:#A85E69; --plum:#5E3A47;
+  --ink:#3B2E33; --ink-soft:#6E5C62; --ink-faint:#9C8A90;
+  --gold:#C9A227; --line:rgba(59,46,51,.11);
+  --sh-sm:0 6px 18px -10px rgba(59,46,51,.32);
+  --sh:0 20px 55px -26px rgba(59,46,51,.42);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-weight:300;
+  line-height:1.72;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body.locked{overflow:hidden;height:100vh}
+img,svg{max-width:100%;display:block}
+::selection{background:var(--blush);color:var(--ink)}
+button{font-family:inherit}
+
+/* ================= ambient ================= */
+.bg-wash{position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(880px 620px at 10% 4%, rgba(233,189,190,.42), transparent 62%),
+    radial-gradient(760px 700px at 92% 26%, rgba(201,162,39,.10), transparent 60%),
+    radial-gradient(900px 700px at 20% 58%, rgba(160,120,150,.10), transparent 62%),
+    radial-gradient(900px 800px at 60% 100%, rgba(201,124,134,.24), transparent 64%),
+    var(--cream);}
+.grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+.petals{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.petal{position:absolute;top:-10vh;color:var(--rose);opacity:.3;animation:fall linear infinite;will-change:transform}
+@keyframes fall{0%{transform:translate3d(0,-10vh,0) rotate(0);opacity:0}
+  12%{opacity:.38}88%{opacity:.28}100%{transform:translate3d(var(--drift,40px),112vh,0) rotate(430deg);opacity:0}}
+
+/* ================= top chrome ================= */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:70;
+  background:linear-gradient(90deg,var(--blush),var(--rose),var(--gold));transition:width .1s linear}
+#hud{position:fixed;top:14px;right:14px;z-index:65;display:flex;align-items:center;gap:8px;
+  opacity:0;transform:translateY(-8px);transition:.5s;pointer-events:none}
+#hud.show{opacity:1;transform:none;pointer-events:auto}
+.pill{display:flex;align-items:center;gap:7px;background:rgba(255,253,251,.86);backdrop-filter:blur(10px);
+  border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 8px;box-shadow:var(--sh-sm)}
+.ring{width:22px;height:22px;flex:none}
+.ring circle{fill:none;stroke-width:3.4;transform:rotate(-90deg);transform-origin:50% 50%}
+.ring .bgc{stroke:rgba(201,124,134,.2)}
+.ring .fg{stroke:var(--rose);stroke-linecap:round;stroke-dasharray:56.5;stroke-dashoffset:56.5;transition:stroke-dashoffset .25s}
+.pill span{font-size:11px;letter-spacing:.06em;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.iconbtn{width:34px;height:34px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,253,251,.86);backdrop-filter:blur(10px);color:var(--rose);cursor:pointer;
+  display:grid;place-items:center;font-size:13px;box-shadow:var(--sh-sm);transition:.28s;flex:none}
+.iconbtn:hover{background:#fff;transform:scale(1.06)}
+.iconbtn.on{background:var(--rose);color:#fff;border-color:var(--rose)}
+.iconbtn.muted{position:relative;color:var(--ink-faint)}
+.iconbtn.muted::after{content:"";position:absolute;left:8px;right:8px;top:50%;height:1.4px;
+  background:currentColor;transform:rotate(-38deg);border-radius:2px}
+
+/* ================= curtain ================= */
+#curtain{position:fixed;inset:0;z-index:100;background:var(--cream);display:flex;
+  align-items:center;justify-content:center;flex-direction:column;gap:20px;padding:28px;
+  transition:opacity 1.05s ease,visibility 1.05s}
+#curtain.gone{opacity:0;visibility:hidden}
+#curtain .env{width:76px;height:76px;animation:pulse 2.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+#curtain .lbl{font-family:var(--serif);font-size:clamp(26px,6.5vw,40px);color:var(--plum);font-style:italic}
+#curtain .hint{font-size:13.5px;color:var(--ink-faint);text-align:center;max-width:32ch;line-height:1.7}
+.btn{border:1px solid var(--rose);background:transparent;color:var(--rose);font-size:12px;
+  letter-spacing:.18em;text-transform:uppercase;padding:14px 34px;border-radius:999px;cursor:pointer;
+  transition:.3s;font-weight:500}
+.btn:hover{background:var(--rose);color:#fff;transform:translateY(-1px)}
+.btn.solid{background:var(--rose);color:#fff}
+.btn.solid:hover{background:var(--plum);border-color:var(--plum)}
+
+/* ================= layout ================= */
+.wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+section{position:relative;padding:clamp(70px,10vw,132px) 0}
+.eyebrow{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--rose);font-weight:500;margin-bottom:16px}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.14;letter-spacing:-.005em}
+h2{font-size:clamp(30px,5.4vw,54px);margin-bottom:14px}
+.sec-intro{color:var(--ink-soft);font-size:clamp(15px,2vw,17.5px);max-width:58ch;margin-bottom:clamp(34px,6vw,60px)}
+.rule{width:52px;height:1px;background:var(--rose);opacity:.5;margin:0 0 24px}
+
+/* ================= reveal ================= */
+.rv{opacity:0;transform:translateY(26px);
+  transition:opacity .95s cubic-bezier(.22,.8,.3,1),transform .95s cubic-bezier(.22,.8,.3,1)}
+.rv-r{opacity:0;transform:translateX(32px)}
+.rv.in,.rv-r.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .rv,.rv-r{opacity:1!important;transform:none!important;transition:none}
+  .petal{display:none}
+  .sc *{animation:none!important}
+}
+
+/* ================= hero ================= */
+#hero{min-height:100svh;display:flex;align-items:center;padding-top:72px}
+.hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(28px,6vw,68px);align-items:center;width:100%}
+#hero h1{font-size:clamp(44px,10.5vw,98px);line-height:1;margin-bottom:20px}
+#hero h1 .w{display:inline-block;opacity:0;transform:translateY(28px) rotate(2.5deg);
+  animation:wordIn .95s cubic-bezier(.19,1,.22,1) forwards}
+@keyframes wordIn{to{opacity:1;transform:none}}
+.hero-line2{font-family:var(--serif);font-style:italic;font-size:clamp(19px,3.1vw,27px);
+  color:var(--ink-soft);max-width:24ch;margin-bottom:24px}
+.hero-sub{font-size:13.5px;color:var(--ink-faint);max-width:40ch}
+.hero-art{position:relative}
+.hero-art .frame{background:var(--paper);padding:11px 11px 44px;border-radius:5px;box-shadow:var(--sh);
+  transform:rotate(-2deg);position:relative}
+.hero-art .frame::after{content:"11.06.2024 — 07.10.2025";position:absolute;bottom:15px;left:0;right:0;
+  text-align:center;font-family:var(--serif);font-style:italic;color:var(--ink-faint);font-size:13px;letter-spacing:.04em}
+.hero-art .inner{border-radius:2px;overflow:hidden;aspect-ratio:4/5}
+.hero-art .inner svg,.hero-art .inner img{width:100%;height:100%;object-fit:cover}
+.scroll-cue{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:9.5px;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--ink-faint);text-align:center}
+.scroll-cue i{display:block;width:1px;height:42px;background:linear-gradient(var(--rose),transparent);
+  margin:9px auto 0;animation:cue 2.1s ease-in-out infinite}
+@keyframes cue{0%,100%{opacity:.25;transform:scaleY(.5);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
+
+/* ================= stats ================= */
+.band{background:linear-gradient(180deg,transparent,rgba(233,189,190,.24),transparent)}
+
+/* ================= timeline ================= */
+.tl{position:relative}
+.tl::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;transform:translateX(-.5px);
+  background:linear-gradient(180deg,transparent,var(--line) 5%,var(--line) 95%,transparent)}
+.moment{position:relative;display:grid;grid-template-columns:1fr 62px 1fr;align-items:center;
+  margin-bottom:clamp(52px,8vw,92px);
+  opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.22,.8,.3,1),transform .9s cubic-bezier(.22,.8,.3,1)}
+.moment.in{opacity:1;transform:none}
+.moment .dot{grid-column:2;justify-self:center;width:11px;height:11px;border-radius:50%;
+  background:var(--cream);border:1.5px solid var(--rose);position:relative;z-index:2;transition:.6s}
+.moment.in .dot{background:var(--rose);box-shadow:0 0 0 6px rgba(201,124,134,.15)}
+.m-media{grid-column:1;padding-right:clamp(14px,3vw,38px);text-align:right}
+.moment.flip .m-media{grid-column:3;padding-right:0;padding-left:clamp(14px,3vw,38px);text-align:left}
+.m-media > *{text-align:left}
+.m-tag{display:inline-block;font-size:9.5px;letter-spacing:.19em;text-transform:uppercase;color:var(--rose);
+  border:1px solid rgba(201,124,134,.34);border-radius:999px;padding:4px 12px;margin-bottom:13px;
+  background:rgba(255,255,255,.6)}
+
+/* frame + scene art */
+.polaroid{background:var(--paper);padding:9px 9px 34px;border-radius:5px;box-shadow:var(--sh);
+  transform:rotate(-1.5deg);transition:transform .6s cubic-bezier(.22,.8,.3,1);position:relative}
+.moment.flip .polaroid{transform:rotate(1.7deg)}
+.polaroid:hover{transform:rotate(0) scale(1.02)}
+.polaroid .art{aspect-ratio:4/3;overflow:hidden;border-radius:2px;background:var(--cream-2)}
+.polaroid .art.is-photo{aspect-ratio:3/4}
+.polaroid .art svg,.polaroid .art img{width:100%;height:100%;object-fit:cover;display:block}
+.polaroid .art img{object-position:center 28%;will-change:transform}
+/* slow, barely-there drift — different direction per photo so it never feels mechanical */
+.moment.in .art.kb0 img{animation:kb0 30s ease-in-out infinite alternate}
+.moment.in .art.kb1 img{animation:kb1 34s ease-in-out infinite alternate}
+.moment.in .art.kb2 img{animation:kb2 27s ease-in-out infinite alternate}
+.moment.in .art.kb3 img{animation:kb3 32s ease-in-out infinite alternate}
+@keyframes kb0{from{transform:scale(1.02) translate(0,0)}     to{transform:scale(1.13) translate(-1.6%,-2.2%)}}
+@keyframes kb1{from{transform:scale(1.12) translate(1.8%,1.4%)}to{transform:scale(1.02) translate(0,0)}}
+@keyframes kb2{from{transform:scale(1.03) translate(1.4%,-1%)} to{transform:scale(1.14) translate(-1.2%,2%)}}
+@keyframes kb3{from{transform:scale(1.11) translate(-1.5%,1.8%)}to{transform:scale(1.02) translate(.6%,-.8%)}}
+.hero-art .inner img{animation:kb0 40s ease-in-out infinite alternate}
+@media (prefers-reduced-motion:reduce){
+  .moment .art img,.hero-art .inner img{animation:none!important}
+}
+.polaroid .cap{position:absolute;left:0;right:0;bottom:11px;text-align:center;
+  font-family:var(--serif);font-style:italic;color:var(--ink-faint);font-size:13px}
+
+/* phone chat */
+.phone{width:min(272px,100%);margin:20px auto 0;background:var(--paper);border-radius:25px;padding:8px;
+  box-shadow:var(--sh);border:1px solid var(--line)}
+.phone-in{background:#EDE3DF;border-radius:18px;overflow:hidden}
+.phone-bar{background:rgba(255,255,255,.78);backdrop-filter:blur(6px);padding:8px 12px;
+  display:flex;align-items:center;gap:9px;border-bottom:1px solid rgba(0,0,0,.05)}
+.avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--blush),var(--rose));
+  display:grid;place-items:center;color:#fff;font-size:11px;font-weight:600;flex:none}
+.phone-bar .nm{font-size:12px;font-weight:500}
+.phone-bar .st{font-size:9px;color:var(--ink-faint);margin-top:-3px}
+.msgs{padding:12px 10px;display:flex;flex-direction:column;gap:6px;min-height:104px}
+.bub{max-width:82%;padding:7px 11px;border-radius:15px;font-size:12.5px;line-height:1.5;word-wrap:break-word;
+  opacity:0;transform:translateY(8px) scale(.96)}
+.moment.in .bub{animation:bubIn .5s cubic-bezier(.19,1,.22,1) forwards}
+@keyframes bubIn{to{opacity:1;transform:none}}
+.bub.me{align-self:flex-end;background:var(--rose);color:#fff;border-bottom-right-radius:4px}
+.bub.her{align-self:flex-start;background:#fff;color:var(--ink);border-bottom-left-radius:4px;
+  box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.noreply{align-self:flex-start;font-size:10.5px;color:var(--ink-faint);font-style:italic;
+  padding:6px 2px 0;letter-spacing:.03em}
+
+/* video */
+.vid{margin-top:18px;border-radius:11px;overflow:hidden;box-shadow:var(--sh);background:#000;
+  aspect-ratio:16/9;position:relative}
+.vid iframe,.vid video{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+/* ================= letter ================= */
+#letter{padding-top:clamp(50px,8vw,100px)}
+.letter-paper{background:var(--paper);border:1px solid var(--line);border-radius:6px;
+  padding:clamp(30px,6vw,72px) clamp(24px,5vw,68px);box-shadow:var(--sh);position:relative;
+  max-width:720px;margin:0 auto}
+.letter-paper::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--blush),var(--rose),var(--blush));border-radius:6px 0 0 6px}
+.letter-paper p{font-family:var(--serif);font-size:clamp(17.5px,2.5vw,21px);line-height:1.72;
+  color:var(--ink);margin-bottom:1.05em;
+  opacity:0;transform:translateY(14px);transition:opacity .9s ease,transform .9s ease}
+.letter-paper p.in{opacity:1;transform:none}
+.letter-paper p:first-child{font-size:clamp(21px,3.2vw,27px);color:var(--plum);margin-bottom:1.1em}
+.letter-paper p:last-child{color:var(--plum);font-style:italic}
+.letter-sign{margin-top:34px;text-align:right;font-family:var(--serif);font-style:italic;
+  font-size:20px;color:var(--rose)}
+
+/* ================= cards ================= */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:16px}
+.card{background:rgba(255,253,251,.74);border:1px solid var(--line);border-radius:14px;padding:26px 24px;
+  transition:transform .55s cubic-bezier(.22,.8,.3,1),box-shadow .55s,background .55s}
+.card:hover{transform:translateY(-5px);box-shadow:var(--sh);background:#fff}
+.card .ic{font-size:19px;color:var(--rose);margin-bottom:12px}
+.card h3{font-size:20px;margin-bottom:8px;line-height:1.3}
+.card p{font-size:14.5px;color:var(--ink-soft)}
+.card .q{margin-top:14px;padding:10px 13px;border-left:2px solid var(--blush);background:rgba(233,189,190,.14);
+  border-radius:0 7px 7px 0;font-size:12.5px;color:var(--plum);font-style:italic;line-height:1.55}
+.card .q::before{content:"anuja: ";font-style:normal;color:var(--rose);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase}
+
+
+/* ================= amends ================= */
+.pay{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px}
+.pay-item{background:rgba(255,253,251,.74);border:1px solid var(--line);border-radius:14px;padding:25px;
+  position:relative;overflow:hidden;transition:.5s}
+.pay-item::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--blush);
+  transform:scaleY(0);transform-origin:top;transition:transform .6s cubic-bezier(.22,.8,.3,1)}
+.pay-item.in::before{transform:scaleY(1)}
+.pay-item:hover{background:#fff;box-shadow:var(--sh);transform:translateY(-4px)}
+.pay-item[data-tag="abhi"]{background:linear-gradient(180deg,rgba(233,189,190,.26),rgba(255,253,251,.74))}
+.pay-item[data-tag="abhi"]::before{background:var(--rose)}
+.pay-tag{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);font-weight:600;
+  margin-bottom:10px;display:block}
+.pay-item h3{font-size:19.5px;margin-bottom:8px;line-height:1.3}
+.pay-item p{font-size:14.5px;color:var(--ink-soft)}
+
+/* ================= the end ================= */
+#theEnd{text-align:center;padding:clamp(50px,9vw,110px) 0 clamp(64px,11vw,130px)}
+.heart-end{margin:0 auto;width:26px;color:var(--rose);animation:beat 2.6s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.17)}28%{transform:scale(1)}42%{transform:scale(1.12)}}
+.notice{max-width:440px;margin:28px auto 0;font-size:10.5px;line-height:1.65;color:var(--ink-faint);
+  text-align:center;opacity:.7}
+
+/* ================= scene animations ================= */
+.sc{width:100%;height:100%;display:block}
+.a-breathe{animation:breathe 5.2s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.75;transform:scale(1)}50%{opacity:1;transform:scale(1.045)}}
+.a-rise{animation:rise 7s ease-in-out infinite}
+@keyframes rise{0%,100%{transform:translateY(5px)}50%{transform:translateY(-6px)}}
+.a-halo{animation:halo 4.4s ease-in-out infinite}
+@keyframes halo{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:.65;transform:scale(1.16)}}
+.a-rays{animation:spin 46s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.a-fly1{animation:fly 11s ease-in-out infinite}
+.a-fly2{animation:fly 13s ease-in-out infinite -3s}
+.a-fly3{animation:fly 15s ease-in-out infinite -7s}
+@keyframes fly{0%{transform:translate(0,0)}50%{transform:translate(26px,-14px)}100%{transform:translate(0,0)}}
+.a-twinkle{animation:tw 3.4s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.2}50%{opacity:1}}
+.a-drift1{animation:dr1 22s ease-in-out infinite}
+.a-drift2{animation:dr2 28s ease-in-out infinite}
+@keyframes dr1{0%,100%{transform:translateX(-16px)}50%{transform:translateX(20px)}}
+@keyframes dr2{0%,100%{transform:translateX(18px)}50%{transform:translateX(-22px)}}
+.a-beat{animation:beat 2.6s ease-in-out infinite}
+.a-float{animation:flt 7.5s ease-in-out infinite}
+@keyframes flt{0%{transform:translateY(0);opacity:0}
+  15%{opacity:.55}85%{opacity:.2}100%{transform:translateY(-190px);opacity:0}}
+.a-confetti{animation:conf 5.6s linear infinite}
+@keyframes conf{0%{transform:translateY(0) rotate(0);opacity:0}
+  10%{opacity:.9}100%{transform:translateY(330px) rotate(420deg);opacity:.15}}
+.a-flame{animation:flame 1.5s ease-in-out infinite}
+@keyframes flame{0%,100%{transform:scaleY(1) scaleX(1) translateY(0)}
+  35%{transform:scaleY(1.18) scaleX(.9) translateY(-2px)}70%{transform:scaleY(.92) scaleX(1.07)}}
+.a-rain{animation:rain 1.05s linear infinite}
+@keyframes rain{0%{transform:translate(0,-24px);opacity:0}
+  18%{opacity:.6}100%{transform:translate(-16px,104px);opacity:0}}
+.a-flash{opacity:0;animation:flash 6.5s ease-in-out infinite}
+@keyframes flash{0%,88%,100%{opacity:0}90%{opacity:.95}92%{opacity:.2}94%{opacity:.85}97%{opacity:0}}
+.a-dash{animation:dash 2.6s ease-in-out infinite}
+@keyframes dash{0%,100%{opacity:.25}50%{opacity:1}}
+.a-steam{animation:steam 4.2s ease-in-out infinite;opacity:0}
+@keyframes steam{0%{opacity:0;transform:translateY(6px) scaleY(.85)}
+  25%{opacity:.7}100%{opacity:0;transform:translateY(-26px) scaleY(1.2)}}
+.a-lift{animation:lift 6.5s ease-in-out infinite}
+@keyframes lift{0%,100%{transform:rotate(-2deg) translateY(0)}50%{transform:rotate(-1deg) translateY(-7px)}}
+.a-shine{animation:shine 5.5s ease-in-out infinite}
+@keyframes shine{0%,70%,100%{opacity:0}82%{opacity:.42}}
+.a-glow{animation:glw 3.6s ease-in-out infinite}
+@keyframes glw{0%,100%{opacity:.4}50%{opacity:1}}
+.a-page{animation:pg 8s ease-in-out infinite}
+@keyframes pg{0%,100%{transform:rotateY(0) scaleX(1)}50%{transform:scaleX(.985)}}
+.a-ring{animation:rng 3.3s ease-out infinite;transform-origin:200px 150px}
+@keyframes rng{0%{transform:scale(.6);opacity:.85}100%{transform:scale(1.7);opacity:0}}
+.a-bar{animation:bar 1.25s ease-in-out infinite;transform-origin:center}
+@keyframes bar{0%,100%{transform:scaleY(.32)}50%{transform:scaleY(1.25)}}
+.a-fadeslow{animation:fs 7.5s ease-in-out infinite}
+@keyframes fs{0%,100%{opacity:1}50%{opacity:.5}}
+.a-dot{animation:dt 1.5s ease-in-out infinite}
+@keyframes dt{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
+
+/* ================= responsive ================= */
+@media(max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:32px}
+  .hero-art{max-width:320px}
+  .tl::before{left:12px}
+  .moment{grid-template-columns:26px 1fr;gap:0}
+  .moment .dot{grid-column:1;justify-self:center;align-self:start;margin-top:8px}
+  .m-media,.moment.flip .m-media{grid-column:2;padding:0 0 0 17px;text-align:left}
+  .phone{margin-left:0}
+  .polaroid,.moment.flip .polaroid{transform:rotate(-1deg)}
+  #hud{top:auto;bottom:14px;right:14px}
+}
+@media(max-width:520px){
+  .card,.pay-item{padding:21px 19px}
+  .reason{grid-template-columns:1fr;gap:6px}
+}
+</style>
+</head>
+<body class="locked">
+
+<div class="bg-wash"></div>
+<div class="grain"></div>
+<div class="petals" id="petals"></div>
+<div class="progress" id="progress"></div>
+
+<div id="hud">
+  <div class="pill">
+    <svg class="ring" viewBox="0 0 24 24"><circle class="bgc" cx="12" cy="12" r="9"/><circle class="fg" id="ringFg" cx="12" cy="12" r="9"/></svg>
+    <span id="pctTxt">0%</span>
+  </div>
+  <button class="iconbtn on" id="autoBtn" title="auto-scroll">⏸</button>
+  <button class="iconbtn" id="musicBtn" title="music" style="display:none">♪</button>
+  <button class="iconbtn" id="topBtn" title="upar">↑</button>
+</div>
+
+<!-- ============ CURTAIN ============ -->
+<div id="curtain">
+  <svg class="env" viewBox="0 0 64 64" fill="none">
+    <rect x="6" y="16" width="52" height="36" rx="5" fill="#F6E4E0" stroke="#C97C86" stroke-width="1.5"/>
+    <path d="M6 21 L32 39 L58 21" stroke="#C97C86" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M32 44 L23 35 a6 6 0 0 1 9 -8 a6 6 0 0 1 9 8 Z" fill="#C97C86"/>
+  </svg>
+  <div class="lbl" id="cLabel">Anuja ke liye</div>
+  <p class="hint" id="cHint"></p>
+  <button class="btn" id="openBtn">Kholo</button>
+</div>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow" id="heroEyebrow"></div>
+      <h1 id="heroTitle"></h1>
+      <p class="hero-line2" id="heroLine2"></p>
+      <p class="hero-sub" id="heroSub"></p>
+    </div>
+    <div class="hero-art rv-r">
+      <div class="frame"><div class="inner" id="heroArt"></div></div>
+    </div>
+  </div>
+  <div class="scroll-cue">scroll<i></i></div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section id="timeline">
+  <div class="wrap">
+    <div class="tl" id="tl"></div>
+    <div id="tlSentinel" style="height:4px"></div>
+  </div>
+</section>
+
+<!-- ============ VIDEO ============ -->
+<section id="videoSec" style="display:none">
+  <div class="wrap" style="max-width:800px">
+    <div class="rv" style="text-align:center">
+      <div class="eyebrow">meri awaaz mein</div>
+      <h2 id="vmTitle"></h2>
+      <p class="sec-intro" id="vmCap" style="margin:0 auto 30px"></p>
+    </div>
+    <div class="rv" id="vmSlot"></div>
+  </div>
+</section>
+
+<!-- ============ LETTER ============ -->
+<section id="letter">
+  <div class="wrap">
+    <div class="rv" style="text-align:center;margin-bottom:clamp(30px,5vw,52px)">
+      <div class="eyebrow" id="ltEyebrow"></div>
+      <h2 id="ltTitle"></h2>
+    </div>
+    <div class="letter-paper" id="ltPaper"></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT HER ============ -->
+<section id="points">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow" id="gpEyebrow"></div>
+      <div class="rule"></div>
+      <h2 id="gpTitle"></h2>
+      <p class="sec-intro" id="gpIntro"></p>
+    </div>
+    <div class="cards" id="gpCards"></div>
+  </div>
+</section>
+
+<!-- ============ AMENDS ============ -->
+<section id="amends">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow" id="amEyebrow"></div>
+      <div class="rule"></div>
+      <h2 id="amTitle"></h2>
+      <p class="sec-intro" id="amIntro"></p>
+    </div>
+    <div class="pay" id="amList"></div>
+  </div>
+</section>
+
+<!-- ============ END ============ -->
+<section id="theEnd">
+  <div class="wrap rv">
+    <svg class="heart-end" viewBox="0 0 24 24"><path d="M12 21 L4 13 a5 5 0 0 1 8 -6 a5 5 0 0 1 8 6 Z" fill="currentColor"/></svg>
+    <p class="notice" id="notice"></p>
+  </div>
+</section>
+
+<audio id="audio" loop></audio>
+
+<script src="content.js"></script>
+<script src="scenes.js"></script>
+<script src="moments.js"></script>
+<script>
+"use strict";
+/* ================= helpers ================= */
+const $  = (s,r=document)=>r.querySelector(s);
+const esc= s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const isURL = v=>/^https?:\/\//i.test(v||"");
+const has   = v=>!!(v&&String(v).trim());
+const C  = (typeof CONTENT !== "undefined" && CONTENT) || {};
+const MO = (typeof MOMENTS !== "undefined" && MOMENTS) || [];
+const SC = (typeof SCENES  !== "undefined" && SCENES ) || {};
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function imgSrc(v){ return !has(v) ? "" : isURL(v)||v.includes("/")||v.includes(".")
+  ? v : "https://lh3.googleusercontent.com/d/"+v.trim()+"=w1600"; }
+function videoHTML(v){
+  if(!has(v)) return "";
+  const s=String(v).trim();
+  if(isURL(s)&&/\.(mp4|webm|ogg)(\?|$)/i.test(s))
+    return `<div class="vid"><video controls playsinline preload="none" src="${esc(s)}"></video></div>`;
+  if(isURL(s)&&/drive\.google\.com/.test(s)){ const m=s.match(/\/d\/([^/]+)/); if(m) return frame(m[1]); }
+  return isURL(s) ? `<div class="vid"><iframe src="${esc(s)}" allowfullscreen></iframe></div>` : frame(s);
+}
+const frame = id=>`<div class="vid"><iframe src="https://drive.google.com/file/d/${esc(id)}/preview" allow="autoplay" allowfullscreen></iframe></div>`;
+const scene = k=>SC[k]||SC.hearts||"";
+
+/* ================= reveal ================= */
+const io = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+},{threshold:.15, rootMargin:"0px 0px -6% 0px"});
+function watch(root){
+  (root||document).querySelectorAll(".rv,.rv-r,.moment,.pay-item,.letter-paper p").forEach(el=>{
+    if(!el.dataset.w){ el.dataset.w="1"; io.observe(el); }
+  });
+}
+
+/* ================= text ================= */
+document.title = C.tabTitle || "Anuja";
+$("#cLabel").textContent = C.curtain?.label || "";
+$("#cHint").textContent  = C.curtain?.hint  || "";
+$("#openBtn").textContent= C.curtain?.button|| "Kholo";
+$("#heroEyebrow").textContent = C.hero?.eyebrow || "";
+$("#heroLine2").textContent   = C.hero?.line2 || "";
+$("#heroSub").textContent     = C.hero?.sub || "";
+$("#heroTitle").innerHTML = (C.hero?.line1||"Sorry.").split(" ")
+  .map((w,i)=>`<span class="w" style="animation-delay:${.18+i*.14}s">${esc(w)}</span>`).join(" ");
+$("#heroArt").innerHTML = has(C.hero?.photo)
+  ? `<img src="${esc(imgSrc(C.hero.photo))}" alt="">` : scene("moon");
+
+/* ================= timeline (auto-loads on scroll) ================= */
+const tl = $("#tl"), sentinel = $("#tlSentinel");
+const PAGE = 6;
+let shown = 0;
+const herInitial = (C.herName||"A").trim().charAt(0).toUpperCase();
+
+function momentHTML(m,i){
+  const isPhoto = has(m.photo);
+  const art = isPhoto
+    ? `<img loading="lazy" decoding="async" src="${esc(imgSrc(m.photo))}" alt="">`
+    : scene(m.scene);
+
+  let chat = "";
+  if(has(m.chatImage)){
+    chat = `<div class="phone"><div class="phone-in"><img loading="lazy" src="${esc(imgSrc(m.chatImage))}" alt=""></div></div>`;
+  } else if(Array.isArray(m.chat)&&m.chat.length){
+    const bubs = m.chat.map((b,j)=>
+      `<div class="bub ${b.me?"me":"her"}" style="animation-delay:${.3+j*.4}s">${esc(b.text)}</div>`).join("");
+    const last = m.chat[m.chat.length-1];
+    const noreply = (!last.me && i===MO.length-1)
+      ? `<div class="noreply">— koi jawab nahi —</div>` : "";
+    chat = `<div class="phone"><div class="phone-in">
+      <div class="phone-bar"><div class="avatar">${esc(herInitial)}</div>
+        <div><div class="nm">${esc(C.herName||"")}</div><div class="st">${esc(m.date||"")}</div></div></div>
+      <div class="msgs">${bubs}${noreply}</div></div></div>`;
+  }
+
+  return `<div class="moment${i%2?" flip":""}" data-i="${i}">
+    <div class="dot"></div>
+    <div class="m-media">
+      <span class="m-tag">${esc(m.date||"")}</span>
+      <div class="polaroid"><div class="art${isPhoto?" is-photo kb"+(i%4):""}">${art}</div>
+        <div class="cap">${esc(m.date||"")}</div></div>
+      ${chat}${has(m.video)?videoHTML(m.video):""}
+    </div>
+  </div>`;
+}
+
+function loadMore(){
+  if(shown >= MO.length) return false;
+  const next = MO.slice(shown, shown+PAGE);
+  const frag = document.createElement("div");
+  frag.innerHTML = next.map((m,k)=>momentHTML(m, shown+k)).join("");
+  while(frag.firstChild) tl.appendChild(frag.firstChild);
+  shown += next.length;
+  watch(tl);
+  return true;
+}
+loadMore(); loadMore();
+
+/* keep loading as she scrolls — no button anywhere */
+new IntersectionObserver(es=>{
+  if(es.some(e=>e.isIntersecting)){
+    if(!loadMore()) return;
+    if(shown < MO.length) setTimeout(()=>{ if(isNear(sentinel)) loadMore(); }, 120);
+  }
+},{rootMargin:"1400px 0px"}).observe(sentinel);
+const isNear = el=>{ const r=el.getBoundingClientRect(); return r.top < innerHeight+1400; };
+
+/* ================= video message ================= */
+const VM = C.videoMessage||{};
+if(VM.show && has(VM.video)){
+  $("#videoSec").style.display="";
+  $("#vmTitle").textContent=VM.title||"";
+  $("#vmCap").textContent=VM.caption||"";
+  $("#vmSlot").innerHTML=videoHTML(VM.video);
+}
+
+/* ================= letter ================= */
+const LT = C.letter||{};
+$("#ltEyebrow").textContent = LT.eyebrow||"";
+$("#ltTitle").textContent   = LT.title||"";
+$("#ltPaper").innerHTML = (LT.paras||[]).map((p,i)=>
+  `<p style="transition-delay:${Math.min(i*.09,.7)}s">${esc(p)}</p>`).join("")
+  + `<div class="letter-sign">— ${esc(C.yourName||"")}</div>`;
+
+/* ================= about her ================= */
+const GP = C.goodPoints||{};
+$("#gpEyebrow").textContent = GP.eyebrow||"";
+$("#gpTitle").textContent   = GP.title||"";
+$("#gpIntro").textContent   = GP.intro||"";
+$("#gpCards").innerHTML = (GP.items||[]).map((it,i)=>
+  `<div class="card rv" style="transition-delay:${(i%3)*.08}s">
+     <div class="ic">${esc(it.icon||"✦")}</div>
+     <h3>${esc(it.title||"")}</h3><p>${esc(it.text||"")}</p>
+     ${it.quote?`<div class="q">${esc(it.quote)}</div>`:""}
+   </div>`).join("");
+
+/* ================= amends ================= */
+const AM = C.amends||{};
+$("#amEyebrow").textContent = AM.eyebrow||"";
+$("#amTitle").textContent   = AM.title||"";
+$("#amIntro").textContent   = AM.intro||"";
+$("#amList").innerHTML = (AM.items||[]).map((it,i)=>
+  `<div class="pay-item rv" data-tag="${esc(it.tag||"")}" style="transition-delay:${(i%3)*.07}s">
+     <span class="pay-tag">${esc(it.tag||"")}</span>
+     <h3>${esc(it.title||"")}</h3><p>${esc(it.text||"")}</p></div>`).join("");
+
+/* ================= petals ================= */
+if(!reduced){
+  const p=$("#petals"), ch=["❀","✿","❁","·","✦"];
+  for(let i=0;i<15;i++){
+    const d=document.createElement("div"); d.className="petal"; d.textContent=ch[i%ch.length];
+    d.style.left=(Math.random()*100)+"%";
+    d.style.animationDuration=(17+Math.random()*20)+"s";
+    d.style.animationDelay=(-Math.random()*32)+"s";
+    d.style.fontSize=(9+Math.random()*12)+"px";
+    d.style.setProperty("--drift",(Math.random()*160-80)+"px");
+    p.appendChild(d);
+  }
+}
+function burst(){
+  for(let i=0;i<24;i++){
+    const d=document.createElement("div"); d.textContent="❤︎";
+    Object.assign(d.style,{position:"fixed",left:"50%",bottom:"20%",zIndex:80,pointerEvents:"none",
+      color:"var(--rose)",fontSize:(11+Math.random()*15)+"px",
+      transition:"transform 1.9s cubic-bezier(.2,.7,.3,1),opacity 1.9s"});
+    document.body.appendChild(d);
+    requestAnimationFrame(()=>{
+      d.style.transform=`translate(${Math.random()*540-270}px,${-(170+Math.random()*400)}px) rotate(${Math.random()*360}deg)`;
+      d.style.opacity="0";
+    });
+    setTimeout(()=>d.remove(),2000);
+  }
+}
+
+/* ================= reading tracker ================= */
+const TR = C.tracker||{};
+$("#notice").textContent = has(TR.endpoint) ? (TR.notice||"") : "";
+
+const SID = (()=>{ try{
+    let s=sessionStorage.getItem("sid");
+    if(!s){ s=Math.random().toString(36).slice(2,10)+Date.now().toString(36); sessionStorage.setItem("sid",s); }
+    return s; }catch(e){ return "x"+Date.now().toString(36); } })();
+
+const T0 = Date.now();
+let maxPct = 0, reachedEnd = false, sent = {}, lastActive = Date.now(), activeMs = 0;
+
+function secs(){ return Math.round(activeMs/1000); }
+function mmss(t){ return Math.floor(t/60)+":"+String(t%60).padStart(2,"0"); }
+
+function track(evt){
+  if(!has(TR.endpoint)) return;
+  const body = new URLSearchParams({
+    sid: SID, event: evt, percent: String(maxPct), seconds: String(secs()),
+    moments: String(shown), finished: reachedEnd ? "1" : "0",
+    screen: innerWidth+"x"+innerHeight, ts: new Date().toISOString(),
+  });
+  try{
+    if(navigator.sendBeacon){ navigator.sendBeacon(TR.endpoint, body); return; }
+  }catch(e){}
+  try{ fetch(TR.endpoint,{method:"POST",mode:"no-cors",keepalive:true,body}); }catch(e){}
+}
+
+const ringFg=$("#ringFg"), pctTxt=$("#pctTxt"), prog=$("#progress"), hud=$("#hud");
+
+function updateProgress(){
+  const h = document.documentElement.scrollHeight - innerHeight;
+  const pct = h>0 ? Math.min(100, Math.round((scrollY/h)*100)) : 0;
+  if(pct>maxPct) maxPct=pct;
+  prog.style.width = pct+"%";
+  ringFg.style.strokeDashoffset = String(56.5 - (56.5*maxPct/100));
+  pctTxt.textContent = maxPct+"%";
+  hud.classList.toggle("show", scrollY > 260 || musicOn);
+
+  /* completion is recorded silently — nothing appears on her screen */
+  if(!reachedEnd && maxPct >= 95 && shown >= MO.length){
+    reachedEnd = true;
+    track("finished");
+  }
+  [25,50,75].forEach(m=>{ if(maxPct>=m && !sent[m]){ sent[m]=1; track("scroll_"+m); } });
+}
+
+/* only count time while the tab is actually being looked at */
+setInterval(()=>{
+  if(document.visibilityState==="visible" && Date.now()-lastActive < 60000) activeMs += 1000;
+}, 1000);
+["scroll","pointerdown","keydown","touchstart"].forEach(e=>
+  addEventListener(e, ()=>{ lastActive=Date.now(); }, {passive:true}));
+addEventListener("scroll", updateProgress, {passive:true});
+addEventListener("resize", updateProgress);
+addEventListener("pagehide", ()=>track("left"));
+document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState==="hidden") track("hidden"); });
+
+/* ================= auto-scroll ================= */
+let auto = C.autoScroll !== false && !reduced;
+let autoRAF = null, lastT = 0;
+const autoBtn = $("#autoBtn");
+const SPEED = 34; /* px per second — slow on purpose */
+
+function tick(t){
+  if(!auto){ autoRAF=null; return; }
+  if(!lastT) lastT=t;
+  const dt=Math.min(t-lastT,60); lastT=t;
+  const h=document.documentElement.scrollHeight-innerHeight;
+  if(scrollY < h-2) scrollBy(0, SPEED*dt/1000);
+  autoRAF=requestAnimationFrame(tick);
+}
+function setAuto(on){
+  auto=on; autoBtn.classList.toggle("on",on); autoBtn.textContent = on?"⏸":"▶";
+  autoBtn.title = on ? "auto-scroll band karo" : "auto-scroll chalu karo";
+  if(on){ lastT=0; if(!autoRAF) autoRAF=requestAnimationFrame(tick); }
+  else if(autoRAF){ cancelAnimationFrame(autoRAF); autoRAF=null; }
+}
+autoBtn.addEventListener("click",()=>setAuto(!auto));
+/* any manual input pauses it, quietly */
+["wheel","touchstart","keydown"].forEach(e=>
+  addEventListener(e, ()=>{ if(auto) setAuto(false); }, {passive:true}));
+
+$("#topBtn").addEventListener("click",()=>{ setAuto(false); scrollTo({top:0,behavior:"smooth"}); });
+
+/* ================= music =================
+   Loops quietly. Starts when she taps "Kholo" (that counts as a
+   user gesture, so browsers allow it). One tap on ♪ turns it off,
+   and the choice is remembered — it won't come back on its own.  */
+const musicBtn = $("#musicBtn");
+let musicOn = false, fadeTimer = null;
+
+if(has(C.music)){
+  const a = $("#audio");
+  a.src = isURL(C.music)||C.music.includes(".") ? C.music
+        : "https://drive.google.com/uc?export=download&id="+C.music;
+  a.loop = true; a.preload = "auto"; a.volume = 0;
+  musicBtn.style.display = "grid";
+
+  const VOL = Math.min(1, Math.max(0, C.musicVolume ?? .3));
+  const remembered = (()=>{ try{ return sessionStorage.getItem("music"); }catch(e){ return null; } })();
+
+  function fadeTo(target, ms, then){
+    clearInterval(fadeTimer);
+    const from = a.volume, steps = Math.max(1, Math.round(ms/50));
+    let i = 0;
+    fadeTimer = setInterval(()=>{
+      i++;
+      a.volume = Math.min(1, Math.max(0, from + (target-from)*(i/steps)));
+      if(i>=steps){ clearInterval(fadeTimer); if(then) then(); }
+    }, 50);
+  }
+  function setMusic(on, remember){
+    musicOn = on;
+    musicBtn.classList.toggle("on", on);
+    musicBtn.classList.toggle("muted", !on);
+    musicBtn.title = on ? "music band karo" : "music chalu karo";
+    musicBtn.setAttribute("aria-label", musicBtn.title);
+    if(on){ a.play().then(()=>fadeTo(VOL, 2600)).catch(()=>{ musicOn=false; musicBtn.classList.remove("on"); }); }
+    else  { fadeTo(0, 700, ()=>a.pause()); }
+    if(remember){ try{ sessionStorage.setItem("music", on?"1":"0"); }catch(e){} }
+  }
+  musicBtn.addEventListener("click", ()=>setMusic(!musicOn, true));
+
+  /* auto-start on the first real tap, unless she already said no */
+  window.__startMusic = ()=>{ if(remembered !== "0") setMusic(true, false); };
+  setMusic(false, false);
+} else {
+  window.__startMusic = ()=>{};
+}
+
+/* ================= open ================= */
+function openSite(){
+  document.body.classList.remove("locked");
+  $("#curtain").classList.add("gone");
+  watch(); updateProgress(); track("opened");
+  setTimeout(()=>{ const c=$("#curtain"); if(c) c.remove(); }, 1200);
+  setAuto(auto);
+  try{ window.__startMusic(); }catch(e){}
+  updateProgress();
+}
+$("#openBtn").addEventListener("click", openSite);
+watch();
+</script>
+</body>
+</html>
