@@ -29,6 +29,8 @@ const MOMENTS = [
 
   { date: "13 June 2024", tag: "Day 3", title: "Pehli baar wo teen lafz",
     caption: "Bola bhi nahi tha — sirf poocha tha ki bolun to chalega?",
+    // highlight: true  ->  ye moment page par bada aur alag dikhta hai
+    highlight: true, highlightLabel: "pehli baar",
     scene: "hearts", photo: "", video: "",
     chat: [
       { me: true,  text: "chal agar i love you v bol de . to dono ka consent marji hona chiye na. hm bole aur tumko nhi pasand to bat bigad na jayega. fir humko laga ki nhi karna chiye. lo bol diye sidha sidha" },
