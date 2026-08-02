@@ -7,6 +7,7 @@
 <meta name="description" content="Ek baat kehni thi.">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="theme-color" content="#FBF7F5">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FBF7F5'/%3E%3Cpath d='M32 50 L14 32 a12 12 0 0 1 18 -16 a12 12 0 0 1 18 16 Z' fill='%23C97C86'/%3E%3Cpath d='M32 50 L14 32 a12 12 0 0 1 18 -16 a12 12 0 0 1 18 16 Z' fill='none' stroke='%23fff' stroke-opacity='.5' stroke-width='1.5'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23FBF7F5'/%3E%3Cpath d='M32 50 L14 32 a12 12 0 0 1 18 -16 a12 12 0 0 1 18 16 Z' fill='%23C97C86'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -374,9 +375,9 @@ h2{font-size:clamp(30px,5.4vw,54px);margin-bottom:14px}
 
 <audio id="audio" loop preload="auto"></audio>
 
-<script src="content.js"></script>
-<script src="scenes.js"></script>
-<script src="moments.js"></script>
+<script src="content.js?v=9"></script>
+<script src="scenes.js?v=9"></script>
+<script src="moments.js?v=9"></script>
 <script>
 "use strict";
 /* ================= helpers ================= */
@@ -605,8 +606,9 @@ let musicOn = false;
 
 if(has(C.music)){
   const a = $("#audio");
-  a.src = isURL(C.music)||C.music.includes(".") ? C.music
-        : "https://drive.google.com/uc?export=download&id="+C.music;
+  a.src = (isURL(C.music) || C.music.includes("."))
+        ? C.music + (C.music.includes("?") ? "" : "?v=9")
+        : "https://drive.google.com/uc?export=download&id=" + C.music;
   a.loop = true;
   const VOL = Math.min(1, Math.max(0, typeof C.musicVolume === "number" ? C.musicVolume : .3));
   a.volume = VOL;
